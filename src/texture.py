@@ -4,6 +4,8 @@ OpenGL Texture Wrapper
 """
 # External, non built-in modules
 import OpenGL.GL as GL              # standard Python OpenGL wrapper
+import numpy as np                  # all matrix manipulations & OpenGL args
+from PIL import Image               # load images for textures
 
 class Texture:
     """ Helper class to create and automatically destroy textures """

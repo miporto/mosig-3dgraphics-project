@@ -9,6 +9,8 @@ import os                           # os function, i.e. checking file status
 import pyassimp                     # 3D resource loader
 import pyassimp.errors              # Assimp error management + exceptions
 
+from mesh import ColorMesh, TexturedMesh
+
 # -------------- 3D ressource loader -----------------------------------------
 def load(file):
     """ load resources from file using pyassimp, return list of ColorMesh """
