@@ -265,10 +265,11 @@ class PhongMesh(Node):
 TEXTURE_VERT = """#version 330 core
 uniform mat4 modelviewprojection;
 layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 tex_coords;
 out vec2 fragTexCoord;
 void main() {
     gl_Position = modelviewprojection * vec4(position, 1);
-    fragTexCoord = position.xy;
+    fragTexCoord = tex_coords;
 }"""
 
 TEXTURE_FRAG = """#version 330 core
@@ -337,7 +338,7 @@ class TexturedMesh:
     def __init__(self, file, attributes, index=None):
         self.shader = Shader(TEXTURE_VERT, TEXTURE_FRAG)
         self.texture = Texture(file)
-        self.mesh = ColorMesh(attributes, index)
+        self.vertex_array = VertexArray(attributes, index)
 
     def draw(self, projection, view, model, color_shader=None, win=None, **param):
         GL.glUseProgram(self.shader.glid)
@@ -351,9 +352,7 @@ class TexturedMesh:
         GL.glActiveTexture(GL.GL_TEXTURE0)
         GL.glBindTexture(GL.GL_TEXTURE_2D, self.texture.glid)
         GL.glUniform1i(loc, 0)
-
-        # !!!!! Here I pass the texture shader, but I am not sure if it is the correct way to do it.
-        self.mesh.draw(projection, view, model, self.shader, **param)
+        self.vertex_array.execute(GL.GL_TRIANGLES)
 
         # leave clean state for easier debugging
         GL.glBindTexture(GL.GL_TEXTURE_2D, 0)
