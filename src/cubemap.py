@@ -13,8 +13,6 @@ class Cubemap:
                  mag_filter=GL.GL_LINEAR_MIPMAP_LINEAR):
         self.glid = GL.glGenTextures(1)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, self.glid)
-        # helper array stores texture format for every pixel size 1..4
-        format = [GL.GL_LUMINANCE, GL.GL_LUMINANCE_ALPHA, GL.GL_RGB, GL.GL_RGBA]
         try:
             self.__load(file)
 
