@@ -81,27 +81,32 @@ DEF_VERTICES = np.array((
 class Skybox:
     def __init__(self, files, attributes=[DEF_VERTICES]):
         self.shader = Shader(VEC_SHAD, FRAG_SHAD)
-        self.cubemap = Cubemap(files)
         self.vertex_array = VertexArray(attributes)
+        self.cubemap = Cubemap(files)
 
     def draw(self, projection, view, model, color_shader=None, win=None, **param):
         """ Draw object """
         GL.glDepthFunc(GL.GL_LEQUAL)
+        #GL.glDepthMask(GL.GL_FALSE)
 
         GL.glUseProgram(self.shader.glid)
 
         # projection geometry
         loc = GL.glGetUniformLocation(self.shader.glid, 'modelviewprojection')
-        # maybe i need to remove the translation from the view matrix
-        GL.glUniformMatrix4fv(loc, 1, True, projection @ view @ model)
+        # it seems not to be working as expected 
+        # I want to remove the translation from the view matrix
+        np.resize(view, (3, 3))
+        np.resize(view, (4, 4))
+        GL.glUniformMatrix4fv(loc, 1, True, projection @ view @ np.identity(4, 'f'))
 
         # texture access setups
         loc = GL.glGetUniformLocation(self.shader.glid, 'skybox')
         GL.glActiveTexture(GL.GL_TEXTURE0)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, self.cubemap.glid)
-        GL.glUniform1i(loc, 1)
+        GL.glUniform1i(loc, 0)
         self.vertex_array.execute(GL.GL_TRIANGLES)
 
+        #GL.glDepthMask(GL.GL_TRUE)
         GL.glDepthFunc(GL.GL_LESS)
         # leave clean state for easier debugging
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, 0)

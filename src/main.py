@@ -18,13 +18,6 @@ def main():
     """ create a window, add scene objects, then run rendering loop """
     viewer = Viewer()
 
-    viewer.add(Skybox([
-        'res/skybox/right.jpg', 
-        'res/skybox/left.jpg',
-        'res/skybox/top.jpg',
-        'res/skybox/bottom.jpg',
-        'res/skybox/front.jpg',
-        'res/skybox/back.jpg']))
     # translate_keys = {0: vec(0, 0, 0), 2: vec(1, 1, 0), 4: vec(0, 0, 0)}
     # rotate_keys = {0: quaternion(), 2: quaternion_from_euler(180, 45, 90),
     #                4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
@@ -41,6 +34,13 @@ def main():
               ' format supported by pyassimp.' % (sys.argv[0],))
 
     viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    viewer.add(Skybox([
+        'res/skybox/right.jpg',
+        'res/skybox/left.jpg',
+        'res/skybox/top.jpg',
+        'res/skybox/bottom.jpg',
+        'res/skybox/front.jpg',
+        'res/skybox/back.jpg']))
     # start rendering loop
     viewer.run()
 

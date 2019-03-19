@@ -9,17 +9,16 @@ from PIL import Image               # load images for textures
 
 class Cubemap:
     """ Helper class to create and automatically destroy cubemaps """
-    def __init__(self, file, wrap_mode=GL.GL_CLAMP_TO_EDGE, min_filter=GL.GL_LINEAR,
-                 mag_filter=GL.GL_LINEAR):
+    def __init__(self, file):
         self.glid = GL.glGenTextures(1)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, self.glid)
         try:
             self.__load(file)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, wrap_mode)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, wrap_mode)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_R, wrap_mode)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, min_filter)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, mag_filter)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE)
+            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_R, GL.GL_CLAMP_TO_EDGE)
         except FileNotFoundError:
             print("ERROR: unable to load texture file %s" % file)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, 0)
