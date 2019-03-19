@@ -4,6 +4,7 @@ Skybox using cubemap
 """
 # External, non built-in modules
 import OpenGL.GL as GL              # standard Python OpenGL wrapper
+import numpy as np
 
 from cubemap import Cubemap
 from shader import Shader
@@ -34,8 +35,51 @@ void main() {
 }
 """
 
+DEF_VERTICES = np.array((
+    (-1.0, 1.0, -1.0),
+    (-1.0, -1.0, -1.0),
+    (1.0, -1.0, -1.0),
+    (1.0, -1.0, -1.0),
+    (1.0, 1.0, -1.0),
+    (-1.0, 1.0, -1.0),
+
+    (-1.0, -1.0,  1.0),
+    (-1.0, -1.0, -1.0),
+    (-1.0,  1.0, -1.0),
+    (-1.0,  1.0, -1.0),
+    (-1.0,  1.0,  1.0),
+    (-1.0, -1.0,  1.0),
+
+    (1.0, -1.0, -1.0),
+    (1.0, -1.0,  1.0),
+    (1.0,  1.0,  1.0),
+    (1.0,  1.0,  1.0),
+    (1.0,  1.0, -1.0),
+    (1.0, -1.0, -1.0),
+
+    (-1.0, -1.0,  1.0),
+    (-1.0,  1.0,  1.0),
+    (1.0,  1.0,  1.0),
+    (1.0,  1.0,  1.0),
+    (1.0, -1.0,  1.0),
+    (-1.0, -1.0,  1.0),
+
+    (-1.0,  1.0, -1.0),
+    (1.0,  1.0, -1.0),
+    (1.0,  1.0,  1.0),
+    (1.0,  1.0,  1.0),
+    (-1.0,  1.0,  1.0),
+    (-1.0,  1.0, -1.0),
+
+    (-1.0, -1.0, -1.0),
+    (-1.0, -1.0,  1.0),
+    (1.0, -1.0, -1.0),
+    (1.0, -1.0, -1.0),
+    (-1.0, -1.0,  1.0),
+    (1.0, -1.0,  1.0)), 'f')
+
 class Skybox:
-    def __init__(self, files, attributes):
+    def __init__(self, files, attributes=[DEF_VERTICES]):
         self.shader = Shader(VEC_SHAD, FRAG_SHAD)
         self.cubemap = Cubemap(files)
         self.vertex_array = VertexArray(attributes)
@@ -48,13 +92,14 @@ class Skybox:
 
         # projection geometry
         loc = GL.glGetUniformLocation(self.shader.glid, 'modelviewprojection')
+        # maybe i need to remove the translation from the view matrix
         GL.glUniformMatrix4fv(loc, 1, True, projection @ view @ model)
 
         # texture access setups
-        loc = GL.glGetUniformLocation(self.shader.glid, 'diffuseMap')
+        loc = GL.glGetUniformLocation(self.shader.glid, 'skybox')
         GL.glActiveTexture(GL.GL_TEXTURE0)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, self.cubemap.glid)
-        GL.glUniform1i(loc, 0)
+        GL.glUniform1i(loc, 1)
         self.vertex_array.execute(GL.GL_TRIANGLES)
 
         GL.glDepthFunc(GL.GL_LESS)
