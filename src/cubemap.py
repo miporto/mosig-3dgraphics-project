@@ -26,6 +26,16 @@ class Cubemap:
     def __load(self, files):
         # helper array stores texture format for every pixel size 1..4
         i = 0
+        # colors = [
+        #     [0xFF, 0x00, 0x00, 0xFF],
+        #     [0x00, 0xFF, 0xFF, 0xFF],
+        #     [0x00, 0xFF, 0x00, 0xFF],
+        #     [0xFF, 0x00, 0xFF, 0xFF],
+        #     [0x00, 0x00, 0xFF, 0xFF],
+        #     [0xFF, 0xFF, 0x00, 0xFF]
+        # ]
+        # width = 1
+        # height = 1
         for file in files:
             # imports image as a numpy array in exactly right format
             tex = np.array(Image.open(file))
