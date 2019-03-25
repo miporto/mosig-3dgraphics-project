@@ -10,6 +10,7 @@ import glfw                         # lean window system wrapper for OpenGL
 
 from keyframe import KeyFrameControlNode
 from loaders import load_textured
+from skybox import Skybox
 from transform import vec, quaternion, quaternion_from_euler
 from viewer import Viewer
 
@@ -17,6 +18,11 @@ def main():
     """ create a window, add scene objects, then run rendering loop """
     viewer = Viewer()
 
+    # place instances of our basic objects
+    if len(sys.argv) < 2:
+        print('Usage:\n\t%s [3dfile]*\n\n3dfile\t\t the filename of a model in'
+              ' format supported by pyassimp.' % (sys.argv[0],))
+    
     translate_keys = {0: vec(0, 0, 0), 2: vec(0, .2, 0), 4: vec(0.3, 0, 0)}
     rotate_keys = {0: quaternion(), 2: quaternion_from_euler(180, 0, 180),
                    4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
@@ -27,12 +33,23 @@ def main():
 
     #txt = TexturedPlane('resources/grass.png')
     #viewer.add(txt)
-    # place instances of our basic objects
-    if len(sys.argv) < 2:
-        print('Usage:\n\t%s [3dfile]*\n\n3dfile\t\t the filename of a model in'
-              ' format supported by pyassimp.' % (sys.argv[0],))
 
     #viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    moonwaw = [
+        'res/mp_moonwaw/moonwaw_lf.tga',
+        'res/mp_moonwaw/moonwaw_rt.tga',
+        'res/mp_moonwaw/moonwaw_up.tga',
+        'res/mp_moonwaw/moonwaw_dn.tga',
+        'res/mp_moonwaw/moonwaw_ft.tga',
+        'res/mp_moonwaw/moonwaw_bk.tga']
+    blood_valley = [
+        'res/mp_bloodvalley/blood-valley_lf.tga',
+        'res/mp_bloodvalley/blood-valley_rt.tga',
+        'res/mp_bloodvalley/blood-valley_up.tga',
+        'res/mp_bloodvalley/blood-valley_dn.tga',
+        'res/mp_bloodvalley/blood-valley_ft.tga',
+        'res/mp_bloodvalley/blood-valley_bk.tga']
+    viewer.add(Skybox(blood_valley))
     # start rendering loop
     viewer.run()
 
