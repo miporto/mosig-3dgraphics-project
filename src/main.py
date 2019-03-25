@@ -18,22 +18,23 @@ def main():
     """ create a window, add scene objects, then run rendering loop """
     viewer = Viewer()
 
-    # translate_keys = {0: vec(0, 0, 0), 2: vec(1, 1, 0), 4: vec(0, 0, 0)}
-    # rotate_keys = {0: quaternion(), 2: quaternion_from_euler(180, 45, 90),
-    #                4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
-    # scale_keys = {0: 1, 2: 0.5, 4: 1}
-    # keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
-    # keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
-    # viewer.add(keynode)
-
-    #txt = TexturedPlane('resources/grass.png')
-    #viewer.add(txt)
     # place instances of our basic objects
     if len(sys.argv) < 2:
         print('Usage:\n\t%s [3dfile]*\n\n3dfile\t\t the filename of a model in'
               ' format supported by pyassimp.' % (sys.argv[0],))
+    
+    translate_keys = {0: vec(0, 0, 0), 2: vec(0, .2, 0), 4: vec(0.3, 0, 0)}
+    rotate_keys = {0: quaternion(), 2: quaternion_from_euler(180, 0, 180),
+                   4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
+    scale_keys = {0: 0.5, 2: 0.3, 4: 0.6}
+    keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
+    keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    viewer.add(keynode)
 
-    viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    #txt = TexturedPlane('resources/grass.png')
+    #viewer.add(txt)
+
+    #viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
     moonwaw = [
         'res/mp_moonwaw/moonwaw_lf.tga',
         'res/mp_moonwaw/moonwaw_rt.tga',
