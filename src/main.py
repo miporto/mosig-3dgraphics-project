@@ -34,13 +34,21 @@ def main():
               ' format supported by pyassimp.' % (sys.argv[0],))
 
     viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
-    viewer.add(Skybox([
-        'res/skybox/right.jpg',
-        'res/skybox/left.jpg',
-        'res/skybox/top.jpg',
-        'res/skybox/bottom.jpg',
-        'res/skybox/front.jpg',
-        'res/skybox/back.jpg']))
+    moonwaw = [
+        'res/mp_moonwaw/moonwaw_lf.tga',
+        'res/mp_moonwaw/moonwaw_rt.tga',
+        'res/mp_moonwaw/moonwaw_up.tga',
+        'res/mp_moonwaw/moonwaw_dn.tga',
+        'res/mp_moonwaw/moonwaw_ft.tga',
+        'res/mp_moonwaw/moonwaw_bk.tga']
+    blood_valley = [
+        'res/mp_bloodvalley/blood-valley_lf.tga',
+        'res/mp_bloodvalley/blood-valley_rt.tga',
+        'res/mp_bloodvalley/blood-valley_up.tga',
+        'res/mp_bloodvalley/blood-valley_dn.tga',
+        'res/mp_bloodvalley/blood-valley_ft.tga',
+        'res/mp_bloodvalley/blood-valley_bk.tga']
+    viewer.add(Skybox(blood_valley))
     # start rendering loop
     viewer.run()
 
