@@ -14,11 +14,11 @@ class Cubemap:
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, self.glid)
         try:
             self.__load(file)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE)
-            GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_R, GL.GL_CLAMP_TO_EDGE)
+            GL.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
+            GL.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
+            GL.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE)
+            GL.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE)
+            GL.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_WRAP_R, GL.GL_CLAMP_TO_EDGE)
         except FileNotFoundError:
             print("ERROR: unable to load texture file %s" % file)
         GL.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, 0)
@@ -26,16 +26,6 @@ class Cubemap:
     def __load(self, files):
         # helper array stores texture format for every pixel size 1..4
         i = 0
-        # colors = [
-        #     [0xFF, 0x00, 0x00, 0xFF],
-        #     [0x00, 0xFF, 0xFF, 0xFF],
-        #     [0x00, 0xFF, 0x00, 0xFF],
-        #     [0xFF, 0x00, 0xFF, 0xFF],
-        #     [0x00, 0x00, 0xFF, 0xFF],
-        #     [0xFF, 0xFF, 0x00, 0xFF]
-        # ]
-        # width = 1
-        # height = 1
         for file in files:
             # imports image as a numpy array in exactly right format
             tex = np.array(Image.open(file))

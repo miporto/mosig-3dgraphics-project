@@ -11,27 +11,25 @@ from shader import Shader
 from vertex_array import VertexArray
 
 VEC_SHAD = """#version 330 core
-layout (location = 0) in vec3 aPos;
-
-out vec3 TexCoords;
-
+layout (location = 0) in vec3 position;
+out vec3 fragTexCoord;
 uniform mat4 modelviewprojection;
 
 void main() {
-    TexCoords = aPos;
-    gl_Position = modelviewprojection * vec4(aPos, 1.0);
+    fragTexCoord = position;
+    gl_Position = modelviewprojection * vec4(position, 1.0);
 }
 """
 
 FRAG_SHAD = """#version 330 core
 out vec4 FragColor;
 
-in vec3 TexCoords;
+in vec3 fragTexCoord;
 
 uniform samplerCube skybox;
 
 void main() {
-    FragColor = texture(skybox, TexCoords);
+    FragColor = texture(skybox, fragTexCoord);
 }
 """
 
