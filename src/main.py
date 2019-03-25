@@ -35,6 +35,14 @@ def main():
     #viewer.add(txt)
 
     #viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    sea = [
+        'res/skybox/right.jpg',
+        'res/skybox/left.jpg',
+        'res/skybox/top.jpg',
+        'res/skybox/bottom.jpg',
+        'res/skybox/front.jpg',
+        'res/skybox/back.jpg'
+    ]
     moonwaw = [
         'res/mp_moonwaw/moonwaw_lf.tga',
         'res/mp_moonwaw/moonwaw_rt.tga',
