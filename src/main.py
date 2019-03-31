@@ -14,6 +14,7 @@ from skybox import Skybox
 from transform import vec, quaternion, quaternion_from_euler
 from viewer import Viewer
 from node import Node
+from spaceship import Spaceship
 
 class Cylinder(Node):
     """ Very simple cylinder based on practical 2 load function """
@@ -40,7 +41,7 @@ def main():
     keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
     keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
     viewer.add(keynode)
-    #viewer.add(Cylinder())
+    viewer.add_movable(Spaceship())
     #txt = TexturedPlane('resources/grass.png')
     #viewer.add(txt)
 
