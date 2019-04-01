@@ -1,6 +1,8 @@
 # Université Grenoble Alpes
+
 ## Master of Science in Informatics at Grenoble
-3D Graphics Final Project
+
+### 3D Graphics Final Project
 ---
 
 ### Group members
@@ -9,8 +11,8 @@
 * Manuel Porto
 
 ### Installation and running instructions
-1. Run pip install -r requirements.txt
-2. Run python src/main.py
+1. Run `pip install -r requirements.txt`
+2. Run `python src/main.py`
 4. For moving the spaceship the following controls must be used:
   a. W/S for moving it back and forth.
   b. A/D for moving it from left to right.
