@@ -11,7 +11,7 @@ import glfw                         # lean window system wrapper for OpenGL
 
 from shader import Shader
 from trackball import GLFWTrackball
-from transform import identity
+from transform import identity, translate, rotate, vec
 
 # ------------  simple color fragment shader demonstrated in Practical 1 ------
 COLOR_VERT = """#version 330 core
@@ -98,12 +98,15 @@ class Viewer:
 
         # initially empty list of object to draw
         self.drawables = []
+        self.movables = []
 
         # initialize trackball
         self.trackball = GLFWTrackball(self.win)
 
         # cyclic iterator to easily toggle polygon rendering modes
-        self.fill_modes = cycle([GL.GL_LINE, GL.GL_POINT, GL.GL_FILL])
+        #self.fill_modes = cycle([GL.GL_LINE, GL.GL_POINT, GL.GL_FILL])
+
+        self.model = identity()
 
     def run(self):
         """ Main render loop for this OpenGL window """
@@ -115,6 +118,9 @@ class Viewer:
             view = self.trackball.view_matrix()
             projection = self.trackball.projection_matrix(winsize)
 
+            for movable in self.movables:
+                movable.draw(projection, view, self.model)
+                
             # draw our scene objects
             for drawable in self.drawables:
                 drawable.draw(projection, view, identity(),
@@ -130,10 +136,30 @@ class Viewer:
         """ add objects to draw in this window """
         self.drawables.extend(drawables)
 
+    def add_movable(self, movable):
+        self.movables.append(movable)
+    
     def on_key(self, _win, key, _scancode, action, _mods):
         """ 'Q' or 'Escape' quits """
         if action == glfw.PRESS or action == glfw.REPEAT:
             if key == glfw.KEY_ESCAPE or key == glfw.KEY_Q:
                 glfw.set_window_should_close(self.win, True)
             if key == glfw.KEY_W:
-                GL.glPolygonMode(GL.GL_FRONT_AND_BACK, next(self.fill_modes))
+                self.model = self.model @ translate(0.01, 0, 0)
+                #GL.glPolygonMode(GL.GL_FRONT_AND_BACK, next(self.fill_modes))
+            if key == glfw.KEY_S:
+                self.model = self.model @ translate(-0.01, 0, 0)
+            if key == glfw.KEY_D:
+                self.model = self.model @ translate(0, 0, 0.01)
+            if key == glfw.KEY_A:
+                self.model = self.model @ translate(0, 0, -0.01)
+            if key == glfw.KEY_E:
+                self.model = self.model @ translate(0, 0.01, 0)
+            if key == glfw.KEY_F:
+                self.model = self.model @ translate(0, -0.01, 0)
+            if key == glfw.KEY_Z:
+                self.model = self.model @ rotate(vec(1, 0, 0), 10)
+            if key == glfw.KEY_X:
+                self.model = self.model @ rotate(vec(0, 1, 0), 10)
+            if key == glfw.KEY_C:
+                self.model = self.model @ rotate(vec(0, 0, 1), 10)
