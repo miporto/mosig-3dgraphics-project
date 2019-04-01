@@ -14,6 +14,7 @@ from skybox import Skybox
 from transform import vec, quaternion, quaternion_from_euler
 from viewer import Viewer
 from spaceship import Spaceship
+from asteroidLoader import AsteroidLoader
 
 def main():
     """ create a window, add scene objects, then run rendering loop """
@@ -34,7 +35,8 @@ def main():
     keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
     keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
     viewer.add(keynode)
-    viewer.add_movable(Spaceship())
+    #viewer.add_movable(Spaceship())
+    viewer.add_movable(AsteroidLoader().get_cloud())
 
     #viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
     sea = [
