@@ -1,13 +1,11 @@
 from node import Node
-from transform import translate, scale
 from loaders import load_textured
 from asteroid import Asteroid
-from transform import Trackball, identity, translate, rotate, scale
-
-class AsteroidLoader():
+from transform import Trackball, identity, translate, rotate, scale ,vec,quaternion, quaternion_from_euler
+from keyframe import KeyFrameControlNode
+class AsteroidGroup():
     """Asteroid"""
     def __init__(self):
-        super().__init__()
 
         asteroid = Asteroid()
 
@@ -49,3 +47,18 @@ class AsteroidLoader():
     def get_cloud(self):
         return self.cloud
 			
+			
+
+class movingAsteroids():
+	def __init__(self):
+
+		group = AsteroidGroup()
+		translate_keys = {0: vec(-1, 0.6, 0),40: vec(1,0.6,0)}
+		rotate_keys = {0: quaternion_from_euler(),10: quaternion_from_euler(45, 0, 45),20: quaternion_from_euler(90, 0, 90),30: quaternion_from_euler(135, 0, 135),40: quaternion_from_euler(180, 0, 180)}
+		scale_keys = {0: 1}
+		keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
+		keynode.add(group.get_cloud())
+		self.asteroid_cluster=keynode
+
+	def get_cluster(self):
+		return self.asteroid_cluster
