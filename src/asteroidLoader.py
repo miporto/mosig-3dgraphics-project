@@ -6,7 +6,6 @@ from keyframe import KeyFrameControlNode
 class AsteroidGroup():
     """Asteroid"""
     def __init__(self):
-        #super().__init__()
 
         asteroid = Asteroid()
 
@@ -63,14 +62,3 @@ class movingAsteroids():
 
 	def get_cluster(self):
 		return self.asteroid_cluster
-
-	"""translate_keys = {0: vec(-1, 0.6, 0),40: vec(1,0.6,0)} 
-    #For asteroid
-    rotate_keys = {0: quaternion_from_euler(),10: quaternion_from_euler(45, 0, 45),20: quaternion_from_euler(90, 0, 90),30: quaternion_from_euler(135, 0, 135),40: quaternion_from_euler(180, 0, 180)}
-    #                4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
-    #rotate_keys = {0: quaternion()}
-    #scale_keys = {0: 0.125, 2: 0.25, 4: 0.5}
-    scale_keys = {0: 1}
-    keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
-    #keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
-    keynode.add(AsteroidLoader().get_cloud())"""
