@@ -23,9 +23,22 @@ void main() {
 TEXTURE_FRAG = """#version 330 core
 uniform sampler2D diffuseMap;
 in vec2 fragTexCoord;
+
 out vec4 outColor;
+
+uniform float weight[5] = float[](0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216);
+
 void main() {
-    outColor = texture(diffuseMap, fragTexCoord);
+    vec2 tex_offset = 1.0/ textureSize(diffuseMap, 0);
+    vec3 result = texture(diffuseMap , fragTexCoord ).rgb * weight[0];
+
+    for(int i = 1 ; i < 5; i++){
+        result += texture(diffuseMap, fragTexCoord + vec2(tex_offset.x * i,0.0)).rgb * weight[i];
+        result += texture(diffuseMap , fragTexCoord - vec2(tex_offset.x * i,0.0)).rgb * weight[i];
+    }
+    //outColor = vec4(result,1.0);
+
+    outColor = texture(diffuseMap, fragTexCoord); //without blur
 }"""
 
 class ColorMesh:

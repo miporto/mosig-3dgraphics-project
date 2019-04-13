@@ -11,9 +11,11 @@ import glfw                         # lean window system wrapper for OpenGL
 from keyframe import KeyFrameControlNode
 from loaders import load, load_textured
 from skybox import Skybox
-from transform import vec, quaternion, quaternion_from_euler
+from transform import vec, quaternion, quaternion_from_euler,scale, translate
 from viewer import Viewer
 from spaceship import Spaceship
+from node import *
+from planet import *
 from asteroidLoader import *
 
 def main():
@@ -51,7 +53,8 @@ def main():
         'res/mp_bloodvalley/blood-valley_ft.tga',
         'res/mp_bloodvalley/blood-valley_bk.tga']
     viewer.add(Skybox(blood_valley))
-    # start rendering loop
+   
+    viewer.add(PlanetLoader().get_planet())
     viewer.run()
 
 
