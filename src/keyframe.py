@@ -49,7 +49,7 @@ class TransformKeyFrames:
         translate_mat = translate(self.translate_keys.value(time))
         rotate_mat = quaternion_matrix(self.rotate_keys.value(time))
         scale_mat = scale(self.scale_keys.value(time))
-        return translate_mat @ rotate_mat @ scale_mat
+        return translate_mat @ rotate_mat @ scale_mat #comment translate and scale bcuz i want only rotate
 
 class KeyFrameControlNode(Node):
     """ Place node with transform keys above a controlled subtree """

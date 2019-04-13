@@ -1,6 +1,6 @@
-from node import Node
 from transform import translate, scale
 from loaders import load_textured
+from node import *
 
 class Spaceship(Node):
     """Keyboard movable spaceship"""
