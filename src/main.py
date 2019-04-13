@@ -14,7 +14,7 @@ from skybox import Skybox
 from transform import vec, quaternion, quaternion_from_euler
 from viewer import Viewer
 from spaceship import Spaceship
-from asteroidLoader import AsteroidLoader
+from asteroidLoader import *
 
 def main():
     """ create a window, add scene objects, then run rendering loop """
@@ -24,24 +24,10 @@ def main():
     if len(sys.argv) < 2:
         print('Usage:\n\t%s [3dfile]*\n\n3dfile\t\t the filename of a model in'
               ' format supported by pyassimp.' % (sys.argv[0],))
-    
-    #translate_keys = {0: vec(0, 0, 0), 10: vec(1, 0, 0), 15: vec(0, 1, 0), 20: vec(0, 0, 1), 25: vec(0, 0, 0)}
-    #For asteroid
-    translate_keys = {0: vec(-1, 0.6, 0),40: vec(1,0.6,0)} 
-    #For asteroid
-    rotate_keys = {0: quaternion_from_euler(),10: quaternion_from_euler(45, 0, 45),20: quaternion_from_euler(90, 0, 90),30: quaternion_from_euler(135, 0, 135),40: quaternion_from_euler(180, 0, 180)}
-    #                4: quaternion_from_euler(180, 0, 180), 6: quaternion()}
-    #rotate_keys = {0: quaternion()}
-    #scale_keys = {0: 0.125, 2: 0.25, 4: 0.5}
-    scale_keys = {0: 1}
-    keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
-    #keynode.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
-    keynode.add(AsteroidLoader().get_cloud())
-    viewer.add(keynode)
-    #viewer.add_movable(Spaceship())
-    #viewer.add_movable(AsteroidLoader().get_cloud())
 
-    #viewer.add(*[mesh for file in sys.argv[1:] for mesh in load_textured(file)])
+    viewer.add(movingAsteroids().get_cluster())
+    viewer.add_movable(Spaceship())
+    
     sea = [
         'res/skybox/right.jpg',
         'res/skybox/left.jpg',
