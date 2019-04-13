@@ -29,7 +29,7 @@ def load(file):
     return meshes
 
 # -------------- 3D textured mesh loader ---------------------------------------
-def load_textured(file):
+def load_textured(file,fragment_shader=None):
     """ load resources using pyassimp, return list of TexturedMeshes """
     try:
         option = pyassimp.postprocess.aiProcessPreset_TargetRealtime_MaxQuality
@@ -63,7 +63,10 @@ def load_textured(file):
                   if mesh.texturecoords.size else None)
 
         # create the textured mesh object from texture, attributes, and indices
-        meshes.append(TexturedMesh(texture, [mesh.vertices, tex_uv], mesh.faces))
+        if(fragment_shader is None):
+            meshes.append(TexturedMesh(texture, [mesh.vertices, tex_uv], mesh.faces))
+        else:
+            meshes.append(TexturedMesh(texture, [mesh.vertices, tex_uv], mesh.faces,frag_shader=fragment_shader))
 
     size = sum((mesh.faces.shape[0] for mesh in scene.meshes))
     print('Loaded %s\t(%d meshes, %d faces)' % (file, len(scene.meshes), size))
