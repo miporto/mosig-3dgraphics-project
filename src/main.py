@@ -18,10 +18,11 @@ from node import *
 from planet import *
 from asteroidLoader import *
 
+
+
 def main():
     """ create a window, add scene objects, then run rendering loop """
-    viewer = Viewer()
-
+    viewer = Viewer(1900,1200)
     # place instances of our basic objects
     if len(sys.argv) < 2:
         print('Usage:\n\t%s [3dfile]*\n\n3dfile\t\t the filename of a model in'
@@ -29,6 +30,7 @@ def main():
 
     viewer.add(movingAsteroids().get_cluster())
     viewer.add_movable(Spaceship())
+    viewer.add()
     
     sea = [
         'res/skybox/right.jpg',
