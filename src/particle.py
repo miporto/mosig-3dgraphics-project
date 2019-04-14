@@ -168,3 +168,8 @@ class ParticleCloud:
 	def draw():
 		for i in particleList:
 			particleList[i].draw()
+
+
+
+
+			

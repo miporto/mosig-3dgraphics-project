@@ -94,8 +94,8 @@ class ColorMesh:
 class TexturedMesh:
     """ Color Mesh class """
 
-    def __init__(self, file, attributes, index=None):
-        self.shader = Shader(TEXTURE_VERT, TEXTURE_FRAG)
+    def __init__(self, file, attributes, index=None,frag_shader=TEXTURE_FRAG):
+        self.shader = Shader(TEXTURE_VERT, frag_shader)
         self.texture = Texture(file)
         self.vertex_array = VertexArray(attributes, index)
 
