@@ -16,12 +16,12 @@ void main() {
     vec2 tex_offset = 1.0/ textureSize(diffuseMap, 0);
     vec3 result = texture(diffuseMap , fragTexCoord ).rgb * weight[0];
 
-    for(int i = 1 ; i < 7; i++){
+    for(int i = 1 ; i < 6; i++){
         result += texture(diffuseMap, fragTexCoord + vec2(tex_offset.x * i,0.0)).rgb * weight[i];
         result += texture(diffuseMap , fragTexCoord - vec2(tex_offset.x * i,0.0)).rgb * weight[i];
     }
     outColor = vec4(result,1.0); // with blur
-
+     //outColor = texture(diffuseMap, fragTexCoord);
 }"""
 
 
@@ -36,7 +36,7 @@ class PlanetLoader():
 
 		planet = Planet()
 
-		rotate_planet = {0: quaternion_from_euler(0,0,0), 2: quaternion_from_euler(0,15,0),20:quaternion_from_euler(0,90,0)}
+		rotate_planet = {0: quaternion_from_euler(0,0,0) ,10:quaternion_from_euler(0,15,0),20:quaternion_from_euler(0,90,0)}
 		keynode = KeyFrameControlNode({0:vec(.8,.8,-.9)},rotate_planet,{0:1, 2:1})
 		keynode.add(planet)
 		self.satellite = keynode

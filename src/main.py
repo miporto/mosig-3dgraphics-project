@@ -14,10 +14,12 @@ from planet import PlanetLoader
 from asteroidLoader import MovingAsteroids
 from ufo import UFO
 
+
+
 def main():
     """ create a window, add scene objects, then run rendering loop """
-    viewer = Viewer()
 
+    viewer = Viewer(1900,1200)
     viewer.add(MovingAsteroids().get_cluster())
     viewer.add_movable(Spaceship())
     viewer.add(PlanetLoader().get_planet())
