@@ -12,6 +12,7 @@ from viewer import Viewer
 from spaceship import Spaceship
 from planet import PlanetLoader
 from asteroidLoader import MovingAsteroids
+from ufo import UFO
 
 def main():
     """ create a window, add scene objects, then run rendering loop """
@@ -20,7 +21,8 @@ def main():
     viewer.add(MovingAsteroids().get_cluster())
     viewer.add_movable(Spaceship())
     viewer.add(PlanetLoader().get_planet())
-   
+    viewer.add(UFO())
+    
     blood_valley = [
         'res/mp_bloodvalley/blood-valley_lf.tga',
         'res/mp_bloodvalley/blood-valley_rt.tga',
@@ -29,7 +31,7 @@ def main():
         'res/mp_bloodvalley/blood-valley_ft.tga',
         'res/mp_bloodvalley/blood-valley_bk.tga']
     viewer.add(Skybox(blood_valley))
-  
+
     viewer.run()
 
 
