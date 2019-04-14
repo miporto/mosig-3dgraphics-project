@@ -63,7 +63,8 @@ def load_textured(file):
                   if mesh.texturecoords.size else None)
 
         # create the textured mesh object from texture, attributes, and indices
-        meshes.append(TexturedMesh(texture, [mesh.vertices, tex_uv], mesh.faces))
+        attributes = [mesh.vertices, tex_uv] if mesh.normals.size == 0 else [mesh.vertices, tex_uv, mesh.normals]
+        meshes.append(TexturedMesh(texture, attributes, mesh.faces))
 
     size = sum((mesh.faces.shape[0] for mesh in scene.meshes))
     print('Loaded %s\t(%d meshes, %d faces)' % (file, len(scene.meshes), size))
