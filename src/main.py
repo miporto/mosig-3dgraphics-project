@@ -12,7 +12,7 @@ from viewer import Viewer
 from spaceship import Spaceship
 from planet import PlanetLoader
 from asteroidLoader import MovingAsteroids
-from ufo import UFO
+from ufo import *
 
 
 
@@ -23,7 +23,7 @@ def main():
     viewer.add(MovingAsteroids().get_cluster())
     viewer.add_movable(Spaceship())
     viewer.add(PlanetLoader().get_planet())
-    viewer.add(UFO())
+    viewer.add(UFOLoader().get_ufo())
     
     blood_valley = [
         'res/mp_bloodvalley/blood-valley_lf.tga',

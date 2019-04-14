@@ -53,8 +53,8 @@ class MovingAsteroids():
 	def __init__(self):
 
 		group = AsteroidGroup()
-		translate_keys = {0: vec(-1, 0.6, 0),40: vec(2,0.6,0)}
-		rotate_keys = {0: quaternion_from_euler(),10: quaternion_from_euler(45, 0, 45),20: quaternion_from_euler(90, 0, 90),30: quaternion_from_euler(135, 0, 135),40: quaternion_from_euler(180, 0, 180)}
+		translate_keys = {0: vec(1, 0.6, 0),20: vec(-2,0.6,0)}
+		rotate_keys = {0: quaternion_from_euler(),5: quaternion_from_euler(45, 0, 45),10: quaternion_from_euler(90, 0, 90),15: quaternion_from_euler(135, 0, 135),20: quaternion_from_euler(180, 0, 180)}
 		scale_keys = {0: 1}
 		keynode = KeyFrameControlNode(translate_keys, rotate_keys, scale_keys)
 		keynode.add(group.get_cloud())
