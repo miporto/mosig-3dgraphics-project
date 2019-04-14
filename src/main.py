@@ -18,6 +18,8 @@ from node import *
 from planet import *
 from asteroidLoader import *
 
+from particles import *
+
 def main():
     """ create a window, add scene objects, then run rendering loop """
     viewer = Viewer()
@@ -55,6 +57,8 @@ def main():
     viewer.add(Skybox(blood_valley))
    
     viewer.add(PlanetLoader().get_planet())
+
+
     viewer.run()
 
 
