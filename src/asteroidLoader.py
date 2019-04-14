@@ -49,7 +49,7 @@ class AsteroidGroup():
 			
 			
 
-class movingAsteroids():
+class MovingAsteroids():
 	def __init__(self):
 
 		group = AsteroidGroup()
